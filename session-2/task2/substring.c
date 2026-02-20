@@ -2,14 +2,33 @@
  * Find a substring within a given string
  */
 
- // create a program to locate a substring "ump" within a given string "The quick brown fox jumped over the lazy dog"
+#include <stdio.h>
+#include <string.h>
 
- /*  Hints:
- 1. include the appropriate libraries
- 2. create the main function
- 3. define the program data as strings
- 4. using the string library documentation find the appropriate string function
- 5. implement the solution and compute the answer  
- 6. print the answer appropriately as pointer, character and string
- */ 
+int main(void) {
+    // Define the string to search in and the substring to find
+    char sentence[] = "The quick brown fox jumped over the lazy dog";
+    char substring[] = "ump";
+    
+    // Use strstr() to find the substring - returns pointer to first occurrence
+    char *result = strstr(sentence, substring);
+    
+    if (result != NULL) {
+        // Print as pointer (memory location)
+        printf("As pointer: %p\n", (void *)result);
+        
+        // Print as character (first character of found substring)
+        printf("As character: %c\n", *result);
+        
+        // Print as string (substring from found position to end)
+        printf("As string: %s\n", result);
+        
+        // Also show the position/index in the original string
+        printf("Position in string: %ld\n", result - sentence);
+    } else {
+        printf("Substring '%s' not found.\n", substring);
+    }
+    
+    return 0;
+} 
 

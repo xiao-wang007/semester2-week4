@@ -2,13 +2,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// modify this code so that 'n' is a command-line argument
-// we can then run the code for any chosen vector size
+// Vector dot product with command-line argument for size
+// Usage: ./dot_product <n>
 
-int main( void ) {
-    int n=10;
-    float *vec1 = calloc(n,sizeof(float));
-    float *vec2 = calloc(n,sizeof(float));
+int main( int argc, char **argv ) {
+    // Get vector size from command line
+    if (argc != 2) {
+        printf("Usage: %s <vector_size>\n", argv[0]);
+        return 1;
+    }
+    
+    int n = atoi(argv[1]);
+    if (n <= 0) {
+        printf("Error: vector size must be positive\n");
+        return 1;
+    }
+    
+    printf("Computing dot product for vectors of size %d\n", n);
+    
+    // Dynamically allocate vectors
+    float *vec1 = calloc(n, sizeof(float));
+    float *vec2 = calloc(n, sizeof(float));
+    
+    if (vec1 == NULL || vec2 == NULL) {
+        printf("Error: memory allocation failed\n");
+        return 1;
+    }
 
     // initial data
     for( int k=0; k<n; ++k ) {
@@ -22,8 +41,9 @@ int main( void ) {
         dot += vec1[k]*vec2[k]; 
     }
 
-    printf("Dot product = %f\n",dot);
+    printf("Dot product = %f\n", dot);
 
+    // Free dynamically allocated memory
     free(vec1);
     free(vec2);
 
